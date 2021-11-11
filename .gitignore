@@ -1,0 +1,4 @@
+# Liste des fichier a ne pas suivre dans git
+*.iml
+.idea/
+out/
