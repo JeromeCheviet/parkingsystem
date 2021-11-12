@@ -15,6 +15,9 @@ public class FareCalculatorService {
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
         int duration = outHour - inHour;
+        System.out.println("outHour : " + outHour);
+        System.out.println("inHour : " + inHour);
+        System.out.println("duration : " + duration);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
