@@ -94,7 +94,9 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+        double expectPrice = 0.75 * Fare.BIKE_RATE_PER_HOUR;
+        //assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+        assertEquals(expectPrice, ticket.getPrice() );
     }
 
     @Disabled
