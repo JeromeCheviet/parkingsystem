@@ -15,6 +15,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -57,7 +59,6 @@ public class ParkingDataBaseIT {
         parkingService.processIncomingVehicle();
         String expectReg = ticketDAO.getTicket("ABCDEF").getVehicleRegNumber();
         int expectParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
-        //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
         assertTrue(expectReg == "ABCDEF");
         assertNotEquals(expectParkingSpot, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
 
@@ -68,7 +69,12 @@ public class ParkingDataBaseIT {
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
-        //TODO: check that the fare generated and out time are populated correctly in the database
+        Date expectOutTime = ticketDAO.getTicket("ABCDEF").getOutTime();
+        double expectPrice = ticketDAO.getTicket("ABCDEF").getPrice();
+        System.out.println(expectPrice);
+        assertTrue(expectOutTime != null);
+        assertNotEquals(expectPrice, 0 );
+
     }
 
 }
