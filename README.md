@@ -30,6 +30,28 @@ https://maven.apache.org/install.html
 
 https://dev.mysql.com/downloads/mysql/
 
+_You can install MySQL in docker instance._<br>
+_To do this, just create a file name_ **docker-compose-mysql_8.0.17** _and put this configuration in :_
+
+```
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+    ports:
+      - 3306:3306
+    volumes:
+      - './resources/db/data:/var/lib/mysql'
+    stdin_open: true
+    tty: true
+```
+
+> Be careful, all datas from MySQL are create in the folder 'resources/db/data' present in this repository. 
+
 After downloading the mysql 8 installer and installing it, you will be asked to configure the password for the default `root` account.
 This code uses the default root account to connect and the password can be set as `rootroot`. If you add another user/credentials make sure to change the same in the code base.
 
@@ -37,6 +59,10 @@ This code uses the default root account to connect and the password can be set a
 
 Post installation of MySQL, Java and Maven, you will have to set up the tables and data in the data base.
 For this, please run the sql commands present in the `Data.sql` file under the `resources` folder in the code base.
+
+If you use Docker, you need to launch it before import database.
+
+<code>docker-compose -f docker-compose-mysql_8.0.17 up -d</code>
 
 Finally, you will be ready to import the code into an IDE of your choice and run the App.java to launch the application.
 
