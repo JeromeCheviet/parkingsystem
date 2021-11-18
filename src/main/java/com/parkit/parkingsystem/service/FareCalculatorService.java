@@ -17,16 +17,22 @@ public class FareCalculatorService {
         // Calcul difference between 2 date and have a result in milliseconde. Convert milliseconde to minutes and divide by 60
         double duration = (double)(((unixOutDate - unixInDate) / 1000) / 60) / 60;
 
-        switch (ticket.getParkingSpot().getParkingType()){
-            case CAR: {
-                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
-                break;
+        if ( duration >= 0.5 ) {
+
+            switch (ticket.getParkingSpot().getParkingType()) {
+                case CAR: {
+                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+                    break;
+                }
+                case BIKE: {
+                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+                    break;
+                }
+                default:
+                    throw new IllegalArgumentException("Unkown Parking Type");
             }
-            case BIKE: {
-                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
-                break;
-            }
-            default: throw new IllegalArgumentException("Unkown Parking Type");
+        }else{
+            ticket.setPrice(0);
         }
     }
 }
