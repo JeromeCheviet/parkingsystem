@@ -77,4 +77,11 @@ public class ParkingDataBaseIT {
 
     }
 
+    @Test
+    public void testGetDiscountWhenIUseParkingGarageRegulary() {
+        testParkingACar();
+        testParkingACar();
+        System.out.println(ticketDAO.getTicket("ABCDEF").getId());
+
+    }
 }
