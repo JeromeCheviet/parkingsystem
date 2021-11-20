@@ -17,8 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,12 +32,17 @@ public class ParkingDataBaseIT {
     private static InputReaderUtil inputReaderUtil;
 
     @BeforeAll
-    private static void setUp() throws Exception{
+    private static void setUp() throws Exception {
         parkingSpotDAO = new ParkingSpotDAO();
         parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
         ticketDAO = new TicketDAO();
         ticketDAO.dataBaseConfig = dataBaseTestConfig;
         dataBasePrepareService = new DataBasePrepareService();
+    }
+
+    @AfterAll
+    private static void tearDown() {
+
     }
 
     @BeforeEach
@@ -48,40 +52,30 @@ public class ParkingDataBaseIT {
         dataBasePrepareService.clearDataBaseEntries();
     }
 
-    @AfterAll
-    private static void tearDown(){
-
-    }
-
     @Test
-    public void testParkingACar(){
+    public void testParkingACar() {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
-        String expectReg = ticketDAO.getTicket("ABCDEF").getVehicleRegNumber();
+
+        String actualReg = ticketDAO.getTicket("ABCDEF").getVehicleRegNumber();
         int expectParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
-        assertTrue(expectReg == "ABCDEF");
+
+        assertTrue(actualReg == "ABCDEF");
         assertNotEquals(expectParkingSpot, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
 
     }
 
     @Test
-    public void testParkingLotExit(){
+    public void testParkingLotExit() throws Exception {
         testParkingACar();
+        Thread.sleep(900);
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
-        Date expectOutTime = ticketDAO.getTicket("ABCDEF").getOutTime();
-        double expectPrice = ticketDAO.getTicket("ABCDEF").getPrice();
-        System.out.println(expectPrice);
-        assertTrue(expectOutTime != null);
-        assertNotEquals(expectPrice, 0 );
 
-    }
+        Date actualOutTime = ticketDAO.getTicket("ABCDEF").getOutTime();
+        double actualPrice = ticketDAO.getTicket("ABCDEF").getPrice();
 
-    @Test
-    public void testGetDiscountWhenIUseParkingGarageRegulary() {
-        testParkingACar();
-        testParkingACar();
-        System.out.println(ticketDAO.getTicket("ABCDEF").getId());
-
+        assertTrue(actualOutTime != null);
+        assertNotNull(actualPrice);
     }
 }
