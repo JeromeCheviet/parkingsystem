@@ -41,6 +41,7 @@ public class ParkingService {
                 //ticket.setId(ticketID);
                 ticket.setParkingSpot(parkingSpot);
                 ticket.setVehicleRegNumber(vehicleRegNumber);
+                ticket.setDiscount(regularCustomer(ticket.getVehicleRegNumber()));
                 ticket.setPrice(0);
                 ticket.setInTime(inTime);
                 ticket.setOutTime(null);
@@ -52,6 +53,12 @@ public class ParkingService {
         }catch(Exception e){
             logger.error("Unable to process incoming vehicle",e);
         }
+    }
+
+    private boolean regularCustomer(String vehicleRegNumber) {
+        boolean discount = false;
+
+        return discount;
     }
 
     private String getVehichleRegNumber() throws Exception {

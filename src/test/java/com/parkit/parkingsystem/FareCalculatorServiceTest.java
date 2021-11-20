@@ -151,7 +151,7 @@ public class FareCalculatorServiceTest {
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
-        ticket.discount(true);
+        ticket.setDiscount(true);
         double fivePercent = ( (1 * Fare.CAR_RATE_PER_HOUR) * 0.05 );
         fareCalculatorService.calculateFare(ticket);
 
