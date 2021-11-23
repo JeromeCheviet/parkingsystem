@@ -114,9 +114,9 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludes>
+                    <!-- <excludes>
                         <exclude>**/*IT.java</exclude>
-                    </excludes>
+                    </excludes> -->
                 </configuration>
                 <executions>
                     <execution>
