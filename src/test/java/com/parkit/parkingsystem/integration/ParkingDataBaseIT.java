@@ -78,4 +78,16 @@ public class ParkingDataBaseIT {
         assertTrue(actualOutTime != null);
         assertNotNull(actualPrice);
     }
+
+    @Test
+    public void testParkingACarRegular() throws Exception {
+        testParkingACar();
+        testParkingLotExit();
+        testParkingACar();
+
+        int actualParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
+        System.out.println(actualParkingSpot);
+
+        assertEquals(1, actualParkingSpot);
+    }
 }
