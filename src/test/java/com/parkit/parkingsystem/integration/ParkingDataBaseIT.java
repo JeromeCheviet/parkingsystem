@@ -58,11 +58,10 @@ public class ParkingDataBaseIT {
         parkingService.processIncomingVehicle();
 
         String actualReg = ticketDAO.getTicket("ABCDEF").getVehicleRegNumber();
-        int expectParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
+        int actualParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
 
         assertTrue(actualReg == "ABCDEF");
-        assertNotEquals(expectParkingSpot, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
-
+        assertEquals(1, actualParkingSpot);
     }
 
     @Test
@@ -81,12 +80,11 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingACarRegular() throws Exception {
-        testParkingACar();
+        //testParkingACar();
         testParkingLotExit();
         testParkingACar();
 
         int actualParkingSpot = ticketDAO.getTicket("ABCDEF").getParkingSpot().getId();
-        System.out.println(actualParkingSpot);
 
         assertEquals(1, actualParkingSpot);
     }
