@@ -25,7 +25,7 @@ public class FareCalculatorService {
     }
 
     private double calculatePrice(ParkingType vehicleType, double duration, Ticket ticket) {
-        double price;
+        double price = 0;
 
         if (duration > 0.5) {
             switch (vehicleType) {
@@ -44,8 +44,6 @@ public class FareCalculatorService {
             if (ticket.getDiscount()) {
                 price = price - (price * 0.05);
             }
-        } else {
-            price = 0;
         }
         return price;
     }
