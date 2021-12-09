@@ -80,7 +80,6 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingACarRegular() throws Exception {
-        //testParkingACar();
         testParkingLotExit();
         testParkingACar();
 
