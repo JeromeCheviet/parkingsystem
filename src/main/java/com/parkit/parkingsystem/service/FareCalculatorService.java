@@ -16,7 +16,8 @@ public class FareCalculatorService {
         long unixOutDate = ticket.getOutTime().getTime();
 
         // Calcul difference between 2 date and have a result in millisecond. Convert milliseconds to minutes and divide by 60
-        double duration = (double) (((unixOutDate - unixInDate) / 1000) / 60) / 60;
+        //double duration = (double) (((unixOutDate - unixInDate) / 1000) / 60) / 60;
+        double duration = ((((double)unixOutDate - (double)unixInDate) / 1000) / 60) / 60;
 
         ParkingType vehicleType = ticket.getParkingSpot().getParkingType();
 
