@@ -44,19 +44,34 @@ public class Ticket {
     }
 
     public Date getInTime() {
-        return inTime;
+        //return inTime;
+        if (inTime != null) {
+            return (Date) inTime.clone();
+        }
+        return null;
     }
 
     public void setInTime(Date inTime) {
-        this.inTime = inTime;
+        //this.inTime = inTime;
+        if (inTime != null) {
+            this.inTime = new Date(inTime.getTime());
+        }
     }
 
     public Date getOutTime() {
-        return outTime;
+        //return outTime;
+        if (outTime != null) {
+            return (Date) outTime.clone();
+        }
+
+        return null;
     }
 
     public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+        //this.outTime = outTime;
+        if (outTime != null) {
+            this.outTime = new Date(outTime.getTime());
+        }
     }
 
     public boolean getDiscount() {
